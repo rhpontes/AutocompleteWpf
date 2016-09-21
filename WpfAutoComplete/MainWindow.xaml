@@ -1,0 +1,421 @@
+﻿<Window x:Class="WpfAutoComplete.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TitleMainWindow" Name="NameMainWindow" xmlns:my="clr-namespace:WpfAutoComplete" >
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="5"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="5"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="5"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="5"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="5"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="5"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="5"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="5"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="5"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="10" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Background="Aquamarine"  Grid.Row="1" Grid.Column="1" Name="TesteOperacional" Header="Teste Operacional">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Row="1" Grid.Column="1" />
+                    <my:AutoComplete  x:Name="autoComplete" 
+                          ItemsSource="{Binding Lista, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          SelectedItem="{Binding ItemSelected, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValue="{Binding SelectedValue, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedIndex="{Binding SelectedIndex, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          LabelLink="{Binding Link, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          HasItems="{Binding HasItems, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectionChanged="autoComplete_SelectionChanged"
+                          Grid.Row="1" Grid.Column="2"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="3" Grid.Column="1" Name="TesteItemsSource" Header="Teste de mudança de lista">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                       Content="O botão trocar lista deverá mudar a lista por outra lista de dois items (Maria e João)"/>
+                    <my:AutoComplete  x:Name="autoComplete2" 
+                          ItemsSource="{Binding Lista2, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          Grid.Row="2" Grid.Column="1"/>
+                    <Button Name="btnTrocarLista" Grid.Row="2" Grid.Column="2" Content="Trocar Lista"
+                        Click="btnTrocarLista_Click" Width="150" HorizontalAlignment="Right"/>
+
+                    <Button Name="btnVoltarLista" Grid.Row="2" Grid.Column="3" Content="Voltar Lista inicial"
+                        Click="btnVoltarLista_Click" Width="150" HorizontalAlignment="Right" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="5" Grid.Column="1" Name="TesteSelectedItem" Header="Teste de seleção de Item (objeto)">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                       Content="O botão selecionar deverá selecionar o item 'MARLENE' da lista inicial"/>
+                    <my:AutoComplete  x:Name="autoComplete3" 
+                          ItemsSource="{Binding Lista3, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          SelectedItem="{Binding ItemSelected3, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Grid.Row="2" Grid.Column="1"/>
+                    <Button Name="btnSelecionarItem" Grid.Row="2" Grid.Column="2" Content="Selecionar"
+                        Click="btnSelecionarItem_Click" Width="150" HorizontalAlignment="Right"/>
+
+                    <Button Name="btnResetSelecao" Grid.Row="2" Grid.Column="3" Content="Reset Seleção"
+                        Click="btnResetSelecao_Click" Width="150" HorizontalAlignment="Right" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="7" Grid.Column="1" Name="TesteSelectedValue" Header="Teste de seleção de Item (valor)">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                       Content="O botão selecionar deverá selecionar um item da lista inicial de acordo com o valor informado"/>
+                    <my:AutoComplete  x:Name="autoComplete4" 
+                          ItemsSource="{Binding Lista4, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          SelectedValue="{Binding SelectedValue4, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Grid.Row="2" Grid.Column="1"/>
+
+                    <TextBox Name="txtCodigoItem" Grid.Row="2" Grid.Column="2" />
+
+                    <Button Name="btnSelecionarItem4" Grid.Row="2" Grid.Column="3" Content="Selecionar"
+                        Click="btnSelecionarItem4_Click" Width="150" HorizontalAlignment="Right"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="9" Grid.Column="1" Name="TesteSelectedIndex" Header="Teste de seleção de Item (index)">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                       Content="O botão selecionar deverá selecionar um item da lista inicial de acordo com o index informado"/>
+                    <my:AutoComplete  x:Name="autoComplete5" 
+                          ItemsSource="{Binding Lista5, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          SelectedIndex="{Binding SelectedIndex5, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Grid.Row="2" Grid.Column="1"/>
+
+                    <TextBox Name="txtIndexItem" Grid.Row="2" Grid.Column="2" />
+
+                    <Button Name="btnSelecionarItem5" Grid.Row="2" Grid.Column="3" Content="Selecionar"
+                        Click="btnSelecionarItem5_Click" Width="150" HorizontalAlignment="Right"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="11" Grid.Column="1" Name="TesteHasItems" Header="Teste propriedade HasItems">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                       Content="O botão selecionar deverá selecionar um item da lista inicial de acordo com o index informado"/>
+                    <my:AutoComplete  x:Name="autoComplete6" 
+                          ItemsSource="{Binding Lista6, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          HasItems="{Binding HasItems6, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Grid.Row="2" Grid.Column="1"/>
+
+                    <Button Name="btnZerarLista" Grid.Row="2" Grid.Column="2" Content="Zerar Lista"
+                        Click="btnZerarLista_Click" Width="150" HorizontalAlignment="Right"/>
+
+                    <Button Name="btnVoltarLista6" Grid.Row="2" Grid.Column="3" Content="Voltar Lista Inicial"
+                        Click="btnVoltarLista6_Click" Width="150" HorizontalAlignment="Right"/>
+
+                    <Label Name="lblHasItems" Content="Existe itens na lista ?"
+                       Grid.Row="3" Grid.Column="1" />
+
+                    <Label Name="txtHasItems" Content="{Binding HasItems6, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       Grid.Row="3" Grid.Column="2" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="13" Grid.Column="1" Name="TesteIsEnabled" Header="Teste habilitar e desabilitar componente">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                       Content="O botão mudar status deverá habilitar e desabilitar o componente"/>
+                    <my:AutoComplete  x:Name="autoComplete7" 
+                          ItemsSource="{Binding Lista7, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          IsEnabled="{Binding IsEnabled7, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Grid.Row="2" Grid.Column="1"/>
+
+                    <Button Name="btnMudarStatus7" Grid.Row="2" Grid.Column="2" Content="Mudar Status"
+                        Click="btnMudarStatus7_Click" Width="150" HorizontalAlignment="Right"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="15" Grid.Column="1" Name="TesteVisibility" Header="Teste de visualização(visibility) do componente">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                       Content="Os botões devem mudar a visualização do componente"/>
+
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <my:AutoComplete  x:Name="autoComplete8" 
+                          ItemsSource="{Binding Lista8, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          Visibility="{Binding Visibility8, ElementName=NameMainWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Placement="Top" MinWidth="150"
+                          Grid.Column="0"/>
+
+                        <Label Name="lblTeste" Content="Teste 1 para verificar espaço no layout" Visibility="Visible" Grid.Column="1" />
+                    </Grid>
+
+
+                    <Button Name="btnVisibility8" Grid.Row="3" Grid.Column="1" Content="Visibility"
+                        Click="btnVisibility8_Click" Width="150"/>
+
+                    <Button Name="btnCollapsed8" Grid.Row="3" Grid.Column="2" Content="Collapsed"
+                        Click="btnCollapsed8_Click" Width="150"/>
+
+                    <Button Name="btnHidden8" Grid.Row="3" Grid.Column="3" Content="Hidden"
+                        Click="btnHidden8_Click" Width="150"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="17" Grid.Column="1" Name="TestePosicao" Header="Teste de posicionamento left do dialog de lista">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                       Content="Os botões devem mudar a posicionamento do dialog da lista"/>
+
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Content="Posição Top"/>
+
+                        <my:AutoComplete  x:Name="autoComplete91" 
+                          ItemsSource="{Binding Lista9, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          Placement="Top" 
+                          MinWidth="150" Grid.Column="1" />
+                        
+                    </Grid>
+
+                    <Grid Grid.Row="2" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Posição Bottom"/>
+                        <my:AutoComplete  x:Name="autoComplete92" 
+                          ItemsSource="{Binding Lista9, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          Placement="Bottom" 
+                          MinWidth="150" Grid.Column="1" />
+
+                    </Grid>
+
+                    <Grid Grid.Row="2" Grid.Column="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Posição Left"/>
+                        <my:AutoComplete  x:Name="autoComplete93" 
+                          ItemsSource="{Binding Lista9, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          Placement="Left"
+                          MaxWidthBox="400"
+                          MinWidth="150" Grid.Column="1" />
+
+                    </Grid>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="19" Grid.Column="1" Name="TesteMaxWidth" Header="Teste da propriedade MaxWidthBox">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Grid.Row="1" Grid.Column="1" Content="ComboLink sem a propriedade MaxWidthBox definida" />
+                    <my:AutoComplete  x:Name="autoComplete10" 
+                          ItemsSource="{Binding Lista10, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          MinWidth="150" Grid.Row="2" Grid.Column="1" />
+
+                    <Label Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" Content="ComboLink com a propriedade MaxWidthBox definida com valor 400 px" />
+                    <my:AutoComplete  x:Name="autoComplete101" 
+                          ItemsSource="{Binding Lista10, ElementName=NameMainWindow, Mode=OneWay}"
+                          SelectedValuePath="Codigo" 
+                          DisplayMemberPath="Descricao"
+                          MaxWidthBox="400"
+                          MinWidth="150" Grid.Row="2" Grid.Column="3" />
+
+                </Grid>
+
+            </GroupBox>
+
+        </Grid>
+    </ScrollViewer>
+</Window>

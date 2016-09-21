@@ -1,0 +1,113 @@
+<UserControl x:Class="WpfAutoComplete.AutoComplete"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="lista" Source="{Binding ListaFiltrada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Style x:Key="CustomFocus">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle StrokeThickness="1"
+                              Stroke="Black"
+                              StrokeDashArray="1 2"
+                              SnapsToDevicePixels="true"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Link" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <!--
+            DESCOMENTAR PARA PUBLICAR
+            <Setter Property="FontFamily" Value="{DynamicResource Fonte.TextoDefault}" />
+            <Setter Property="FontSize" Value="{DynamicResource Tamanho.TextoDefault}" /> -->
+            <Setter Property="Foreground" Value="{Binding ColorLink, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock
+                    Text="{TemplateBinding Content}"
+                    Background="{TemplateBinding Background}">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="TextDecorations" Value="Underline"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LinkDisabled" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <!--
+            DESCOMENTAR PARA PUBLICAR
+            <Setter Property="FontFamily" Value="{DynamicResource Fonte.TextoDefault}" />
+            <Setter Property="FontSize" Value="{DynamicResource Tamanho.TextoDefault}" /> -->
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock Text="{TemplateBinding Content}" Background="{TemplateBinding Background}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Name="grd">
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="23" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <DockPanel Name="PanelTextBox" Grid.Row="0">
+            <Grid>
+                <TextBox Name="txtHolder" BorderBrush="DarkGray" BorderThickness="0,0,0,2" Background="Transparent" Foreground="Gray" Visibility="{Binding LinkDisabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                         Width="{Binding ActualWidth, ElementName=txt}" Focusable="False" CharacterCasing="Upper"/>
+                <TextBox Name="txt" BorderBrush="DarkGray" BorderThickness="0,0,0,2" Background="Transparent" Visibility="{Binding LinkDisabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                         CharacterCasing="Upper" GotFocus="txt_GotFocus" DataObject.Pasting="txt_Pasting"
+                         PreviewKeyDown="txt_PreviewKeyDown" PreviewTextInput="txt_PreviewTextInput" LostFocus="txt_LostFocus" />
+                <Button Content="{Binding LabelLinkItemSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                        Visibility="{Binding LinkEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Click="Link_Click" Name="btnLink" FocusVisualStyle="{DynamicResource CustomFoucs}" PreviewKeyDown="btnLink_PreviewKeyDown"
+                        Style="{StaticResource Link}" GotFocus="Button_GotFocus" PreviewMouseDown="btnLink_PreviewMouseDown"  />
+            </Grid>
+        </DockPanel>
+        <DockPanel Name="PanelPopup" Grid.Row="0">
+            <Popup Name="popup" Placement="{Binding InternalPlacement, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                   MinWidth="{Binding ActualWidth, ElementName=txt}">
+                <Border BorderBrush="Gray" BorderThickness="1,1,1,1">
+                    <ScrollViewer MaxHeight="90" Name="scroolViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <ListBox Name="lista" BorderThickness="0" Padding="0,0,4,0"
+                            IsSynchronizedWithCurrentItem="False"
+                            DisplayMemberPath="Descricao"
+                            SelectedValue="{Binding InternalItemSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectionChanged="lista_SelectionChanged"
+                            LostFocus="lista_LostFocus"
+                            Mouse.LostMouseCapture="lista_LostMouseCapture"
+                            PreviewKeyDown="lista_PreviewKeyDown">
+                        </ListBox>
+                    </ScrollViewer>
+                </Border>
+            </Popup>
+        </DockPanel>
+    </Grid>
+</UserControl>
