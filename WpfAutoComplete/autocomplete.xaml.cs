@@ -69,6 +69,7 @@ namespace WpfAutoComplete
                 control.MapaItems = new Dictionary<string, Item>();
                 control.Items = new List<Item>();
                 control.InternalItemSelected = null;
+                control.LabelLinkItemSelected = control.SetLabelLink("");
                 control.ParseToItems(lista);
                 control.MinimumSearchLength = 0;
                 control.SetValue(HasItemsProperty,control.Items.Count() > 1);
