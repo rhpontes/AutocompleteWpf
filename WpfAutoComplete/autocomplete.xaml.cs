@@ -31,6 +31,7 @@ namespace WpfAutoComplete
         private const string SELECIONE = "SELECIONE";
         private const string LABEL_LINK_DEFAULT = "SELECIONE";
         private const string LINK_COLOR_DEFAULT = "#0E5E79";
+        private const string BACKGROUND_POPUP_DEFAULT = "#FFFFFF";
 
         private Dictionary<string, object> MapaObjects = new Dictionary<string, object>();
 
@@ -330,6 +331,21 @@ namespace WpfAutoComplete
         }
 
         /// <summary>
+        /// Items Informados ao componente
+        /// </summary>
+        public static readonly DependencyProperty BackgroundPopupProperty =
+            DependencyProperty.Register(
+            "BackgroundPopup",
+            typeof(Brush),
+            typeof(AutoComplete),
+            new FrameworkPropertyMetadata(null));
+        public Brush BackgroundPopup
+        {
+            get { return (Brush)GetValue(BackgroundPopupProperty); }
+            set { SetValue(BackgroundPopupProperty, value); }
+        }
+
+        /// <summary>
         /// Items informados ao componente
         /// </summary>
         public static readonly DependencyProperty HasItemsProperty =
@@ -508,6 +524,7 @@ namespace WpfAutoComplete
             var converter = new System.Windows.Media.BrushConverter();
             // Cor font link default
             ColorLink = (Brush)converter.ConvertFromString(LINK_COLOR_DEFAULT);
+            BackgroundPopup = (Brush)converter.ConvertFromString(BACKGROUND_POPUP_DEFAULT);
 
             this.IsEnabledChanged += new DependencyPropertyChangedEventHandler((sender, e) => {
                 System.Diagnostics.Debug.WriteLine("IsEnabledChanged: " + txt.Text);

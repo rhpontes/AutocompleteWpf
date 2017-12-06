@@ -92,11 +92,12 @@
             </Grid>
         </DockPanel>
         <DockPanel Name="PanelPopup" Grid.Row="0">
-            <Popup Name="popup" Placement="{Binding InternalPlacement, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            <Popup Name="popup" Placement="{Binding InternalPlacement, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                    MinWidth="{Binding ActualWidth, ElementName=txt}">
                 <Border BorderBrush="Gray" BorderThickness="1,1,1,1">
                     <ScrollViewer MaxHeight="90" Name="scroolViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                         <ListBox Name="lista" BorderThickness="0" Padding="0,0,4,0"
+                                 Background="{Binding BackgroundPopup, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                             IsSynchronizedWithCurrentItem="False"
                             DisplayMemberPath="Descricao"
                             SelectedValue="{Binding InternalItemSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"

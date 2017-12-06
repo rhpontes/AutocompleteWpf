@@ -81,7 +81,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
                        Content="O botão trocar lista deverá mudar a lista por outra lista de dois items (Maria e João)"/>
-                    <my:AutoComplete  x:Name="autoComplete2" 
+                    <my:AutoComplete  x:Name="autoComplete2" BackgroundPopup="WhiteSmoke" 
                           ItemsSource="{Binding Lista2, ElementName=NameMainWindow, Mode=OneWay}"
                           SelectedValuePath="Codigo" 
                           DisplayMemberPath="Descricao"
